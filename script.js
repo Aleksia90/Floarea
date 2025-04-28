@@ -41,6 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
+// Анимация появления блоков при скролле
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('scroll-visible');
+      entry.target.classList.remove('.scroll-hidden');
+      observer.unobserve(entry.target); // Чтобы больше не следить за этим элементом
+    }
+  });
+}, {
+  threshold: 0.2 // 20% блока видно — запускаем анимацию
+});
+
+// Навешиваем наблюдение на все скрытые элементы
+document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
 
 
 
